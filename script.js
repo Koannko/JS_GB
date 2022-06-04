@@ -33,11 +33,7 @@ class GoodsList {
     document.querySelector('.goods-list').innerHTML = goods;
   }
   getPrice() {
-    let sumPrices = 0;
-    for (let item of this.items) {
-      sumPrices += item.price;
-    }
-    return sumPrices;
+    return this.items.reduce((result, { price }) => result + price, 0);
   }
 }
 
