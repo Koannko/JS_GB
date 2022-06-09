@@ -5,51 +5,76 @@ const goods = [
   { title: 'Shoes', price: 250 },
 ];
 
-const renderGoodsItem = (title = 'Clothes', price = '$100') => {
-  return `
-    <div class="goods-item">
-      <h3>${title}</h3>
-      <p>${price}</p>
-    </div>
-  `;
-};
+const GET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json'
+const GET_BASKET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json'
 
-const renderGoodsList = (list = goods) => {
-  let goodsList = list.map(item => renderGoodsItem(item.title, item.price));
-  document.querySelector('.goods-list').innerHTML = goodsList.join("");
+function service(url, callback) {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  xhr.send();
+  xhr.onload = () => {
+    callback(JSON.parse(xhr.response));
+  };
 }
 
-renderGoodsList(goods);
+class GoodsItem {
+  constructor({ product_name, price }) {
+    this.product_name = product_name;
+    this.price = price;
+  }
+  render() {
+    return `
+    <div class="goods-item">
+      <h3>${this.product_name}</h3>
+      <p>${this.price}</p>
+    </div>
+  `;
+  }
+}
 
-// Запятые были из - за того, что innerHTML получает массив goodList и превращает
-// в строку, с разделителем запятая. С помощью join можно изменить разделитель на 
-// пустую строку.
+class GoodsList {
+  items = [];
+  fetchGoods(callback) {
+    service(GET_GOODS_ITEMS, (data) => {
+      this.items = data;
+      callback();
+    });
+  }
+  calculatePrice() {
+    return this.items.reduce((prev, { price }) => {
+      return prev + price;
+    }, 0)
+  }
+  render() {
+    const goods = this.items.map(item => {
+      const goodItem = new GoodsItem(item);
+      return goodItem.render()
+    }).join('');
 
-// Можно было бы объединить эти две функции в одну:
-// const renderGoodsList = (list = goods) => {
-//   let goodsList = list.map(item => {
-//     return `
-//     <div class="goods-item">
-//       <h3>${item.title}</h3>
-//       <p>${item.price}</p>
-//     </div>
-//   `;
-//   });
-//   document.querySelector('.goods-list').innerHTML = goodsList.join("");
-// ;
-
-// Можно также передать объект item и там его реструктурировать, 
-//а еще убрать return, чтобы сократить запись:
-
-// const renderGoodsItem = ({title = 'Clothes', price = '$100'}) => `
-//     <div class="goods-item">
-//       <h3>${title}</h3>
-//       <p>${price}</p>
-//     </div>
-//   `;
-// };
+    document.querySelector('.goods-list').innerHTML = goods;
+  }
+}
 
 
+class BasketGoods {
+  items = [];
+  fetchGoods(callback = () => { }) {
+    service(GET_BASKET_GOODS_ITEMS, (data) => {
+      this.items = data;
+      callback();
+    });
+  };
+};
 
+const goodsList = new GoodsList();
+goodsList.fetchGoods(() => {
+  goodsList.render();
+});
 
+const basketGoods = new BasketGoods();
+basketGoods.fetchGoods();
 
+/* 1) Создать класс для корзины товаров, который должен иметь в себе свойство 
+(список товаров корзины) и один метод - который реализует получение с сервера 
+списка товаров корзины и запись его в ранее названное свойство. 
+(url ендпоинта смотреть в методичке) */
