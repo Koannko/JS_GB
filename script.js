@@ -5,16 +5,21 @@ const goods = [
   { title: 'Shoes', price: 250 },
 ];
 
+const BASE_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/';
 const GET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json'
 const GET_BASKET_GOODS_ITEMS = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/getBasket.json'
 
-function service(url, callback) {
-  const xhr = new XMLHttpRequest();
-  xhr.open('GET', url);
-  xhr.send();
-  xhr.onload = () => {
-    callback(JSON.parse(xhr.response));
-  };
+function service(url) {
+  return new Promise((resolve) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', url);
+    xhr.send();
+    xhr.onload = () => {
+      if (xhr.readyState === 4) {
+        resolve(JSON.parse(xhr.response));
+      };
+    }
+  })
 }
 
 class GoodsItem {
@@ -30,15 +35,21 @@ class GoodsItem {
     </div>
   `;
   }
-}
+};
 
 class GoodsList {
   items = [];
-  fetchGoods(callback) {
-    service(GET_GOODS_ITEMS, (data) => {
+  filteredItems = []
+  fetchGoods() {
+    return service(GET_GOODS_ITEMS).then((data) => {
       this.items = data;
-      callback();
+      this.filteredItems = data;
     });
+  }
+  filterItems(value) {
+    this.filteredItems = this.items.filter(({ product_name }) => {
+      return product_name.match(new RegExp(value, 'gui'))
+    })
   }
   calculatePrice() {
     return this.items.reduce((prev, { price }) => {
@@ -53,28 +64,33 @@ class GoodsList {
 
     document.querySelector('.goods-list').innerHTML = goods;
   }
-}
-
+};
 
 class BasketGoods {
   items = [];
-  fetchGoods(callback = () => { }) {
-    service(GET_BASKET_GOODS_ITEMS, (data) => {
+  fetchGoods() {
+    return service(GET_BASKET_GOODS_ITEMS).then((data) => {
       this.items = data;
-      callback();
     });
   };
 };
 
 const goodsList = new GoodsList();
-goodsList.fetchGoods(() => {
+goodsList.fetchGoods().then(() => {
   goodsList.render();
 });
 
 const basketGoods = new BasketGoods();
 basketGoods.fetchGoods();
 
-/* 1) Создать класс для корзины товаров, который должен иметь в себе свойство 
-(список товаров корзины) и один метод - который реализует получение с сервера 
-списка товаров корзины и запись его в ранее названное свойство. 
-(url ендпоинта смотреть в методичке) */
+document.querySelector('.search-button').addEventListener('click', () => {
+  const value = document.querySelector('.goods-search').value;
+  console.log(value);
+  goodsList.filterItems(value);
+  goodsList.render();
+});
+
+/*1) Переделайте makeGETRequest() так, чтобы она использовала промисы.
+2) * Переделайте GoodsList так, чтобы fetchGoods() возвращал промис, а render() 
+вызывался в обработчике этого промиса.
+*/
