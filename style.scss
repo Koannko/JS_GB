@@ -81,6 +81,17 @@ nav {
         margin-left: 18px;
         text-transform: uppercase;
     }
+
+    .goods-item {
+        width: 200px;
+        height: 300px;
+        padding: 10px;
+        box-sizing: border-box;
+        outline: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 @media (max-width: 1600px) and (min-width: 768px) {
