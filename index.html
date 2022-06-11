@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <title>eShop</title>
+   <link rel="stylesheet" href="style.css">
+   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+   <script src="script.js"></script>
+</head>
+
+<body>
+   <div id="root">
+      <header>
+         <nav>
+            <ul class="nav-list">
+               <li class="nav-left">
+                  <div class="nav-item"><img src="images/Logo.svg" alt="Logo"></div>
+                  <div class="nav-item">
+                     <input class="goods-search" type="text" v-model="search">
+                     <img class="search-button" src="images/Search.svg" v-on:click="filterItems" alt="Search">
+                  </div>
+               </li>
+               <li class="nav-right">
+                  <div class="nav-item"><img src="images/Menu.svg" alt="nav"></div>
+                  <div class="nav-item"><img src="images/Personal.svg" alt="Personal"></div>
+                  <div class="nav-item"><img src="images/cart.svg" alt="Basket"></div>
+               </li>
+            </ul>
+         </nav>
+
+         <button @click="isVisibleCart=!isVisibleCart" class="cart-button" type="button">Корзина</button>
+      </header>
+      <main>
+         <div class="goods-list">
+            <div class="goods-item" v-for="item in filteredItems">
+               <h3>{{ item.product_name }}</h3>
+               <p>{{ item.price }}</p>
+            </div>
+         </div>
+      </main>
+      <div class="basket" v-if="isVisibleCart">
+         <div v-if="!filteredItems.length">Нет данных</div>
+         <div v-else="filteredItems.length">Сумма товаров в корзине: {{ calculatePrice }}</div>
+      </div>
+   </div>
+</body>
+
+</html>
