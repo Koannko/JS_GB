@@ -18,7 +18,7 @@
                   <div class="nav-item"><img src="images/Logo.svg" alt="Logo"></div>
                   <div class="nav-item">
                      <input class="goods-search" type="text" v-model="search">
-                     <img class="search-button" src="images/Search.svg" v-on:click="filterItems" alt="Search">
+                     <search-button src="images/Search.svg" v-on:click="filterItems" alt="Search">Найти</search-button>
                   </div>
                </li>
                <li class="nav-right">
@@ -33,16 +33,10 @@
       </header>
       <main>
          <div class="goods-list">
-            <div class="goods-item" v-for="item in filteredItems">
-               <h3>{{ item.product_name }}</h3>
-               <p>{{ item.price }}</p>
-            </div>
+            <goods-item v-for="item in filteredItems" v-bind:item="item"></goods-item>
          </div>
       </main>
-      <div class="basket" v-if="isVisibleCart">
-         <div v-if="!filteredItems.length">Нет данных</div>
-         <div v-else="filteredItems.length">Сумма товаров в корзине: {{ calculatePrice }}</div>
-      </div>
+      <basket v-if="isVisibleCart" v-on:closeclick="setVisionCard"></basket>
    </div>
 </body>
 

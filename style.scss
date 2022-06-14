@@ -1,5 +1,3 @@
-// Добавила стили из прошлого проекта
-
 * {
     margin: 0 auto;
 }
@@ -82,12 +80,12 @@ nav {
         text-transform: uppercase;
     }
 
-    .goods-item {
+    goods-item {
         width: 200px;
         height: 300px;
         padding: 10px;
         box-sizing: border-box;
-        outline: 1px solid black;
+        border: 1px solid black;
         display: flex;
         flex-direction: column;
         gap: 10px;
