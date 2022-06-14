@@ -1,0 +1,126 @@
+* {
+    margin: 0 auto;
+}
+
+nav {
+    padding: 0 231px;
+    background-color: #222;
+}
+
+.nav-list {
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    height: 75px;
+    align-items: center;
+    padding: 0;
+}
+
+.nav-left {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-right {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-item {
+    display: flex;
+    align-self: center;
+    margin: 0 20px;
+    position: relative;
+}
+
+.cart-button {
+    width: 211px;
+    height: 47px;
+    border: 1px solid #FF6A6A;
+    background: none;
+    font-family: Lato;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #F26376;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 24px;
+    padding-right: 33px;
+    margin-bottom: 65px;
+    display: flex;
+}
+
+.goods-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 30px;
+
+    h3 {
+        font-family: Lato, sans-serif;
+        font-size: 18px;
+        line-height: 24px;
+        color: #000000;
+        margin-top: 25px;
+        margin-left: 18px;
+        text-transform: uppercase;
+    }
+
+    p {
+        font-family: Lato, sans-serif;
+        font-size: 16px;
+        line-height: 22px;
+        color: #F26376;
+        margin-top: 25px;
+        margin-left: 18px;
+        text-transform: uppercase;
+    }
+
+    goods-item {
+        width: 200px;
+        height: 300px;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 1600px) and (min-width: 768px) {
+    nav {
+        padding: 0 32px;
+    }
+
+    .item-list {
+        gap: 20px;
+    }
+
+    .goods-list h3 {
+        margin-top: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 0 16px;
+    }
+
+    .nav-right {
+        margin-right: 10px;
+    }
+
+    .item-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .goods-list h3 {
+        margin-top: 23px;
+    }
+}
