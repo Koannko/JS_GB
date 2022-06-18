@@ -7,9 +7,6 @@ function service(url) {
     .then((res) => res.json())
 }
 
-service(GET_BASKET_GOODS_ITEMS).then((data) => {
-  debugger
-})
 
 function init() {
   const CustomButton = Vue.component('search-button', {
@@ -19,7 +16,7 @@ function init() {
       </button>
     `
   })
-  const basketGoods = Vue.component('basket-goods', {
+  const basketGoods = Vue.component('basket', {
     data() {
       return {
         basketGoodsItems: []
@@ -40,7 +37,10 @@ function init() {
             </div>
          </div>
       </div>
-    `
+      `,
+    mounted() {
+
+    }
   })
 
   const goodsItem = Vue.component('goods-item', {
@@ -48,9 +48,15 @@ function init() {
       'item'
     ],
     template: `
-      <div class="goods-item">
-         <h3>{{ item.product_name }}</h3>
-         <p>{{ item.price }}</p>
+      <div class="goods-item flex">
+      <div class="goods-item-header">
+          <h3>{{ item.product_name }}</h3>
+          <p>{{ item.price }}</p>
+      </div>
+          <div class="add-del-button">
+              <button class="cart-button goods-button">Добавить</button>
+              <button class="cart-button goods-button">Удалить</button>
+          </div>   
       </div>
     `
   })
@@ -61,6 +67,7 @@ function init() {
       items: [],
       filteredItems: [],
       search: '',
+      cardIsVision: false
     },
     methods: {
       setVisionCard() {
@@ -91,20 +98,3 @@ function init() {
   })
 }
 window.onload = init
-
-const err = new Vue.component('basket', {
-  isVisibleCart: false,
-  props: [
-    'item'
-  ],
-  template: `
-    <div v-if="!filteredItems.length">Нет данных</div>
-         <div v-else="filteredItems.length">Сумма товаров в корзине: {{ calculatePrice }}</div>`
-})
-/* 
-1. Вынести поиск в отдельный компонент.
-2. Вынести корзину в отдельный компонент.
-3. * Создать компонент с сообщением об ошибке. 
-Компонент должен отображаться, когда не
-удаётся выполнить запрос к серверу. 
-*/

@@ -52,29 +52,27 @@ nav {
   position: relative;
 }
 
+.nav-item .goods-search {
+  border-radius: 5px;
+  border: none;
+}
+
+.nav-item .search-button {
+  border-radius: 5px;
+  background-color: #FFF;
+  border: none;
+  margin-left: 5px;
+  font-family: Lato, sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  color: #000000;
+  cursor: pointer;
+}
+
 .cart-button {
-  width: 211px;
-  height: 47px;
-  border: 1px solid #FF6A6A;
+  border: none;
   background: none;
-  font-family: Lato;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  color: #F26376;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  padding-left: 24px;
-  padding-right: 33px;
-  margin-bottom: 65px;
-  display: flex;
+  cursor: pointer;
 }
 
 .goods-list {
@@ -85,30 +83,17 @@ nav {
   -ms-grid-rows: auto;
       grid-template-rows: auto;
   grid-gap: 30px;
+  margin-top: 60px;
 }
 
-.goods-list h3 {
-  font-family: Lato, sans-serif;
-  font-size: 18px;
-  line-height: 24px;
-  color: #000000;
-  margin-top: 25px;
-  margin-left: 18px;
-  text-transform: uppercase;
+.goods-list .flex {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
-.goods-list p {
-  font-family: Lato, sans-serif;
-  font-size: 16px;
-  line-height: 22px;
-  color: #F26376;
-  margin-top: 25px;
-  margin-left: 18px;
-  text-transform: uppercase;
-}
-
-.goods-list goods-item {
-  width: 200px;
+.goods-list .goods-item {
+  width: 250px;
   height: 300px;
   padding: 10px;
   -webkit-box-sizing: border-box;
@@ -122,6 +107,107 @@ nav {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 10px;
+  text-align: center;
+  border-radius: 5px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.goods-list .goods-item .goods-item-header h3 {
+  font-family: Lato, sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  color: #000000;
+  margin: 25px 0 20px;
+  text-transform: uppercase;
+}
+
+.goods-list .goods-item .goods-item-header p {
+  font-family: Lato, sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  color: #F26376;
+  margin-top: 25px;
+  margin-left: 18px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.goods-list .goods-item .add-del-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.goods-list .goods-item .goods-button {
+  border-radius: 5px;
+  border: #F26376 solid 1px;
+  font-family: Lato, sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  color: #000000;
+  padding: 5px 10px;
+}
+
+.fixed-area {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+}
+
+.fixed-area .basket-card {
+  position: absolute;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 80%;
+  height: 500px;
+  background-color: #FFF;
+  border-radius: 5px;
+  top: 10%;
+  padding: 30px;
+}
+
+.fixed-area .basket-card .basket-card__header {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto max-content;
+      grid-template-columns: auto -webkit-max-content;
+      grid-template-columns: auto max-content;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.fixed-area .basket-card .basket-card__header .basket-card__header__title {
+  padding: 10px;
+}
+
+.fixed-area .basket-card .basket-card__header .basket-card__header__delete-icon {
+  background-image: url(images/delete.webp);
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  cursor: pointer;
+}
+
+.fixed-area .basket-card .basket-card__content {
+  padding: 10px;
 }
 
 @media (max-width: 1600px) and (min-width: 768px) {
