@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <title>eShop</title>
+   <link rel="stylesheet" href="style.css">
+   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+   <script src="script.js"></script>
+</head>
+
+<body>
+   <div id="root">
+      <header>
+         <nav>
+            <ul class="nav-list">
+               <li class="nav-left">
+                  <div class="nav-item"><img src="images/Logo.svg" alt="Logo"></div>
+                  <div class="nav-item">
+                     <input class="goods-search" type="text" v-model="search">
+                     <search-button src="images/Search.svg" v-on:click="filterItems" alt="Search">Найти</search-button>
+                  </div>
+               </li>
+               <li class="nav-right">
+                  <div class="nav-item"><img src="images/Menu.svg" alt="nav"></div>
+                  <div class="nav-item"><img src="images/Personal.svg" alt="Personal"></div>
+                  <button v-on:click="setVisionCard" class="cart-button nav-item" type="button"><img
+                        src="images/cart.svg" alt="Basket"></button>
+               </li>
+            </ul>
+         </nav>
+      </header>
+      <main>
+         <div class="goods-list">
+            <goods-item v-for="item in filteredItems" v-bind:item="item"></goods-item>
+         </div>
+      </main>
+      <basket v-if="cardIsVision" v-on:closeclick="setVisionCard"></basket>
+   </div>
+</body>
+
+</html>
