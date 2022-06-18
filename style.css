@@ -55,6 +55,10 @@ nav {
 .nav-item .goods-search {
   border-radius: 5px;
   border: none;
+  background-image: url(images/Search.svg);
+  background-repeat: no-repeat;
+  background-size: 10%;
+  background-position: 7px;
 }
 
 .nav-item .search-button {
